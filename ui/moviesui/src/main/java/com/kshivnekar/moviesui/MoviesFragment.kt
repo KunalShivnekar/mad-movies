@@ -17,6 +17,7 @@ import com.kshivnekar.arch.data.succeeded
 import com.kshivnekar.movies.R
 import com.kshivnekar.movies.databinding.FragmentMoviesBinding
 import com.kshivnekar.moviesdata.remote.ApiFilm
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 /**
@@ -24,17 +25,14 @@ import javax.inject.Inject
  * Use the [MoviesFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 class MoviesFragment : Fragment() {
 
-    @Inject
-    internal lateinit var adapter: MoviesAdapter
+    @Inject internal lateinit var adapter: MoviesAdapter
 
     private lateinit var binding: FragmentMoviesBinding
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val moviesViewModel by viewModels<MoviesViewModel>(){viewModelFactory}
+    private val moviesViewModel:MoviesViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
