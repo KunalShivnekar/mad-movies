@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:elevation="4dp"
+        android:theme="@style/MovieDB.ThemeOverlay.ActionBar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/film_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="24dp"
+                android:paddingHorizontal="@dimen/gutter"
+                app:layout_constraintDimensionRatio="h,16:9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@color/colorAccent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/film_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:textAppearance="@style/MovieDB.TextAppearance.Heading.Medium"
+                android:paddingHorizontal="@dimen/gutter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/film_image"
+                tools:text="Movie title" />
+
+            <TextView
+                android:id="@+id/film_overview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAppearance="@style/MovieDB.TextAppearance.Body.Small"
+                android:paddingHorizontal="@dimen/gutter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/film_title"
+                tools:text="Movie overview" />
+
+            <TextView
+                android:id="@+id/film_similar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:paddingStart="@dimen/gutter"
+                android:textAppearance="@style/MovieDB.TextAppearance.Heading.XSmall"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/film_overview"
+                android:text="@string/similar_movies"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/film_similar_view_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="34dp"
+                android:paddingEnd="@dimen/gutter"
+                android:textAppearance="@style/MovieDB.TextAppearance.ViewAll"
+                android:text="@string/view_all"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/film_overview"
+                app:drawableEndCompat="@drawable/ic_arrow_right"
+                tools:ignore="RtlSymmetry" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/film_recycler_similar_films"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingBottom="60dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/film_similar" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</LinearLayout>
