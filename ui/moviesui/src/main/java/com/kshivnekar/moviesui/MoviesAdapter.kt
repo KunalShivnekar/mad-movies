@@ -13,8 +13,7 @@ import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 import javax.inject.Inject
 
-internal class MoviesAdapter @Inject constructor(private val picasso: Picasso) :
- ListAdapter<ApiFilm, MoviesAdapter.Holder>(diffCallback) {
+internal class MoviesAdapter @Inject constructor(private val picasso: Picasso) : ListAdapter<ApiFilm, MoviesAdapter.Holder>(diffCallback) {
 
  init {
   setHasStableIds(true)

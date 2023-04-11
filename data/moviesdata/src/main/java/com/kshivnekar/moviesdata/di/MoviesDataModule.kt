@@ -10,14 +10,15 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ActivityComponent::class)
-internal class MoviesDataModule {
+@InstallIn(SingletonComponent::class)
+class MoviesDataModule {
 
     @Provides
     fun provideMovieService(client: OkHttpClient): MovieService {
@@ -35,6 +36,7 @@ internal class MoviesDataModule {
     }
 
     @Provides
+    @Singleton
     fun provideMovieRepository(movieRepositoryImpl: MovieRepositoryImpl):MovieRepository{
         return movieRepositoryImpl
     }

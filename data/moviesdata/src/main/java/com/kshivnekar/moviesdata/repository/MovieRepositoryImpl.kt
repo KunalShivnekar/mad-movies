@@ -4,7 +4,7 @@ import com.kshivnekar.arch.data.Response
 import com.kshivnekar.moviesdata.remote.*
 import javax.inject.Inject
 
-internal class MovieRepositoryImpl @Inject constructor(private val remoteDataSource: RemoteDataSource):MovieRepository {
+class MovieRepositoryImpl @Inject constructor(private val remoteDataSource: RemoteDataSource):MovieRepository {
 
     override suspend fun fetchTopRated(): Response<List<ApiFilm>> {
         return remoteDataSource.fetchTopRated()
