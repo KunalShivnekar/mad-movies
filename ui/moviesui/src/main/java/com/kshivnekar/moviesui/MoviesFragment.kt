@@ -8,6 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -27,50 +31,19 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class MoviesFragment : Fragment() {
-
-    @Inject internal lateinit var adapter: MoviesAdapter
-
-    private lateinit var binding: FragmentMoviesBinding
-
     private val moviesViewModel:MoviesViewModel by viewModels()
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        moviesViewModel.moviesState.observe(this, ::updateState)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentMoviesBinding.inflate(inflater,container,false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupView()
-    }
-
-    private fun setupView() {
-        val linearLayoutManager = LinearLayoutManager(requireContext())
-        binding.recycler.layoutManager = linearLayoutManager
-        binding.recycler.adapter = adapter
-        val dividerItemDecoration = DividerItemDecoration(requireContext(), linearLayoutManager.orientation).apply {
-            setDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.divider)!!)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        return ComposeView(requireContext()).apply {
+            setContent {
+                val movies = moviesViewModel.moviesState.observeAsState(Response.Loading).value
+                MoviesScreen(
+                    movies = movies,
+                    onMovieSelected = {},
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
         }
-        binding.recycler.addItemDecoration(dividerItemDecoration)
-        //adapter.setOnClick { id -> FilmDetailActivity.start(this, id) }
-    }
-
-    private fun updateState(response:Response<List<ApiFilm>>) {
-        when (response) {
-            is Response.Success -> displayResults(response.data)
-            else -> displayError()
-        }
-    }
-
-    private fun displayResults(results: List<ApiFilm>) {
-        adapter.submitList(results)
     }
 
     private fun displayError() {

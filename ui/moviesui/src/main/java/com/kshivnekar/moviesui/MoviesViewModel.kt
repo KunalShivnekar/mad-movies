@@ -12,18 +12,15 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-internal class MoviesViewModel @Inject constructor(private val movieRepository: MovieRepository):ViewModel() {
+class MoviesViewModel @Inject constructor(private val movieRepository: MovieRepository):ViewModel() {
 
     private val _moviesState = MutableLiveData<Response<List<ApiFilm>>>()
 
-    val moviesState: LiveData<Response<List<ApiFilm>>>
-        get() = _moviesState
+    val moviesState: LiveData<Response<List<ApiFilm>>> = _moviesState
 
     init {
         viewModelScope.launch {
             _moviesState.value = movieRepository.fetchTopRated()
         }
     }
-
-
 }
